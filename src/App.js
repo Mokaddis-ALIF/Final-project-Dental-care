@@ -9,18 +9,12 @@ import ServicesApp from './Components/Appointment/ServicesApp';
 import PrivateRoute from './Components/Login/PrivateRoute/PrivateRoute';
 import DatePickerApp from './Components/Appointment/DatePickerApp';
 import AppointmentForm from './Components/Appointment/AppointmentForm';
+import Dashboard from './Components/Dashboard/Dashboard/Dashboard';
 
 function App() {
-	const [sidebar, setSidebar] = useState(false);
-
-	const toggleSidebar = () => {
-		setSidebar((prevState) => !prevState);
-	};
-
 	return (
 		<>
 			<Router>
-				<Header openSidebar={toggleSidebar} />
 				<Switch>
 					<Route exact path="/">
 						<Shared />
@@ -33,6 +27,9 @@ function App() {
 					</Route>
 					<PrivateRoute exact path="/servicesApp">
 						<ServicesApp />
+					</PrivateRoute>
+					<PrivateRoute exact path="/dashboard">
+						<Dashboard />
 					</PrivateRoute>
 					<PrivateRoute exact path="/pickDate/:id">
 						<DatePickerApp />

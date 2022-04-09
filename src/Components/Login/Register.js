@@ -44,6 +44,18 @@ const Register = () => {
 						{/* <Form.Label>Email address</Form.Label> */}
 						<Form.Control
 							className="border-top-0"
+							type="text"
+							name="name"
+							id="name"
+							required
+							onChange={handleOnChange}
+							placeholder="Enter name"
+						/>
+					</Form.Group>
+					<Form.Group className="mb-3 pb-3 w-75" controlId="formBasicEmail">
+						{/* <Form.Label>Email address</Form.Label> */}
+						<Form.Control
+							className="border-top-0"
 							type="email"
 							name="email"
 							id="email"

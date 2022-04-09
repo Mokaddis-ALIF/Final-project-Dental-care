@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
 import { useParams } from 'react-router-dom';
 import {
 	Button,
@@ -11,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import 'react-calendar/dist/Calendar.css';
 import { Link } from 'react-router-dom';
+import Calendar from '../Shared/Calendar/Calendar';
 
 const services = [
 	{ id: 1, name: ' Invisalign' },
@@ -33,7 +33,7 @@ const times = [
 ];
 
 const DatePickerApp = () => {
-	const [value, onChange] = useState(new Date());
+	const [date, setDate] = useState(new Date());
 	const [selectedItem, setSelectedItem] = useState('');
 
 	const { id } = useParams();
@@ -51,7 +51,7 @@ const DatePickerApp = () => {
 					</p>
 					<Row>
 						<Col lg={6} sm={12}>
-							<Calendar onChange={onChange} value={value} />
+							<Calendar date={date} setDate={setDate} />
 						</Col>
 						<Col
 							lg={6}
@@ -59,7 +59,7 @@ const DatePickerApp = () => {
 							className="d-flex flex-column justify-content-start align-items-center"
 						>
 							<div className="text-muted h5 mt-3">
-								{value.toLocaleDateString()}
+								{date.toLocaleDateString()}
 							</div>
 							<div className="d-flex flex-wrap gap-2 mt-2">
 								<DropdownButton
@@ -94,7 +94,7 @@ const DatePickerApp = () => {
 								<div className="d-flex justify-content-center align-items-center gap-5">
 									<p className="text-secondary">
 										<b>
-											{value.toLocaleDateString()} at {selectedItem.time}
+											{date.toLocaleDateString()} at {selectedItem.time}
 										</b>
 									</p>
 									<Button variant="secondary">Next</Button>

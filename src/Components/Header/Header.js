@@ -8,6 +8,7 @@ import { FaTooth } from 'react-icons/fa';
 
 const Header = ({ openSidebar }) => {
 	const { user, logOut } = useAuth();
+	console.log(user.email);
 	const [click, setClick] = useState(false);
 
 	const handleClick = () => setClick(!click);
