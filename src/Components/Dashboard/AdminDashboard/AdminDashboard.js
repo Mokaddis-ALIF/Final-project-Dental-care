@@ -10,6 +10,7 @@ import {
 	Table,
 } from 'react-bootstrap';
 import { FaRegCalendarAlt } from 'react-icons/fa';
+import EditIcon from '@mui/icons-material/Edit';
 
 const appointments = [
 	{ id: 1, number: 9, title: 'Pending appointments', color: 'bg-danger' },
@@ -27,9 +28,39 @@ const tableHeading = [
 	'Action',
 ];
 
-const DashboardHome = () => {
+const appData = [
+	{
+		id: 1,
+		date: '27-02-2022',
+		time: '3.30 PM',
+		name: 'Alif',
+		contact: '+0123445566',
+		prescription: 'View',
+		action: 'Pending',
+	},
+	{
+		id: 2,
+		date: '27-02-2022',
+		time: '3.30 PM',
+		name: 'Jonayed',
+		contact: '+0123445566',
+		prescription: 'Not Added',
+		action: 'Cancelled',
+	},
+	{
+		id: 2,
+		date: '27-02-2022',
+		time: '3.30 PM',
+		name: 'Jonayed',
+		contact: '+0123445566',
+		prescription: 'View',
+		action: 'Approved',
+	},
+];
+
+const AdminDashboard = () => {
 	return (
-		<Container style={{ marginTop: '-40px' }}>
+		<Container style={{ marginTop: '-10px' }}>
 			<div className="text-start">
 				<h3>Dashboard</h3>
 			</div>
@@ -71,12 +102,41 @@ const DashboardHome = () => {
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							{Array.from({ length: 6 }).map((_, index) => (
-								<td key={index}>Table cell {index}</td>
-							))}
-						</tr>
+						{appData.map((data, index) => (
+							<tr>
+								<td>{index + 1}</td>
+								<td>{data.date}</td>
+								<td>{data.time}</td>
+								<td>{data.name}</td>
+								<td>{data.contact}</td>
+								<td>
+									{data.prescription === 'View' ? (
+										<Button className="text-white" variant="info">
+											{data.prescription}
+										</Button>
+									) : (
+										'Not Added'
+									)}
+								</td>
+								<td className="d-flex align-items-center gap-2">
+									<Button
+										className=" text-white"
+										variant={
+											data.action === 'Pending'
+												? 'info'
+												: data.action === 'Approved'
+												? 'success'
+												: 'danger'
+										}
+									>
+										{data.action}
+									</Button>
+									<Button className="text-white" variant="warning">
+										<EditIcon />
+									</Button>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</Table>
 			</div>
@@ -84,4 +144,4 @@ const DashboardHome = () => {
 	);
 };
 
-export default DashboardHome;
+export default AdminDashboard;

@@ -8,23 +8,27 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@mui/material';
-import Calendar from '../../Shared/Calendar/Calendar';
-import DashboardAppointment from '../DashboardAppointment/DashboardAppointment';
-import { Switch, Route, NavLink, useRouteMatch } from 'react-router-dom';
-import useAuth from '../../../Auth/Hooks/useAuth';
-import DashboardHome from '../DashboardHome/DashboardHome';
+import Welcome from '../Welcome/Welcome';
+import {
+	Switch,
+	Route,
+	Link,
+	useParams,
+	useRouteMatch,
+} from 'react-router-dom';
+import { Button } from '@mui/material';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AdminRoute from '../../Login/AdminRoute/AdminRoute';
-import { Button } from '@mui/material';
+import useAuth from '../../../Auth/Hooks/useAuth';
+import AdminDashboard from '../AdminDashboard/AdminDashboard';
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
 	const { admin } = useAuth();
+
 	const { window } = props;
 	const [mobileOpen, setMobileOpen] = React.useState(false);
-	const [date, setDate] = React.useState(new Date());
 
 	let { path, url } = useRouteMatch();
 
@@ -35,20 +39,21 @@ function Dashboard(props) {
 	const drawer = (
 		<div>
 			<Toolbar />
-			{admin ? (
-				<div className="d-flex flex-column">
-					<NavLink style={{ textDecoration: 'none' }} to="/adminDashboard">
-						<Button>Dashboard</Button>
-					</NavLink>
-					<NavLink style={{ textDecoration: 'none' }} to={`${url}/makeAdmin`}>
-						<Button>Make Admin</Button>
-					</NavLink>
-				</div>
-			) : (
-				<NavLink to="/myAppointments">
-					<Button>My appointments</Button>
-				</NavLink>
-			)}
+			<div className="d-flex flex-column">
+				<Link to="/">
+					<Button>Home</Button>
+				</Link>
+				{admin && (
+					<>
+						<Link to={`${url}/makeAdmin`}>
+							<Button>Make Admin</Button>
+						</Link>
+						<Link to={`${url}/adminDashboard`}>
+							<Button>Dashboard</Button>
+						</Link>
+					</>
+				)}
+			</div>
 		</div>
 	);
 
@@ -58,28 +63,25 @@ function Dashboard(props) {
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
-			{/* <AppBar
+			<AppBar
 				position="fixed"
 				sx={{
 					width: { sm: `calc(100% - ${drawerWidth}px)` },
 					ml: { sm: `${drawerWidth}px` },
 				}}
 			>
-				<Toolbar>
+				<Toolbar sx={{ backgroundColor: 'white' }}>
 					<IconButton
 						color="inherit"
 						aria-label="open drawer"
 						edge="start"
 						onClick={handleDrawerToggle}
-						sx={{ mr: 2, display: { sm: 'none' } }}
+						sx={{ mr: 2, display: { sm: 'none' }, color: 'black' }}
 					>
 						<MenuIcon />
 					</IconButton>
-					<Typography variant="h6" noWrap component="div">
-						Dashboard
-					</Typography>
 				</Toolbar>
-			</AppBar> */}
+			</AppBar>
 			<Box
 				component="nav"
 				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -127,16 +129,18 @@ function Dashboard(props) {
 				}}
 			>
 				<Toolbar />
-				<Grid container spacing={2}>
-					<Switch>
-						<Route exact path={path}>
-							<DashboardHome />
-						</Route>
-						<AdminRoute exact path={`${path}/makeAdmin`}>
-							<MakeAdmin />
-						</AdminRoute>
-					</Switch>
-				</Grid>
+
+				<Switch>
+					<Route exact path={path}>
+						<Welcome />
+					</Route>
+					<AdminRoute path={`${path}/makeAdmin`}>
+						<MakeAdmin />
+					</AdminRoute>
+					<AdminRoute path={`${path}/adminDashboard`}>
+						<AdminDashboard />
+					</AdminRoute>
+				</Switch>
 			</Box>
 		</Box>
 	);
