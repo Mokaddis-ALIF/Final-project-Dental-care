@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Switch, Route, Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -7,25 +8,72 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Welcome from '../Welcome/Welcome';
-import {
-	Switch,
-	Route,
-	Link,
-	useParams,
-	useRouteMatch,
-} from 'react-router-dom';
 import { Button } from '@mui/material';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AdminRoute from '../../Login/AdminRoute/AdminRoute';
 import useAuth from '../../../Auth/Hooks/useAuth';
 import AdminDashboard from '../AdminDashboard/AdminDashboard';
+import AdminAppointments from '../AdminAppointments/AdminAppointments';
+import AdminPatients from '../AdminPatients/AdminPatients';
+import Prescription from '../Prescription/Prescription';
+import HomeIcon from '@mui/icons-material/Home';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import AddDoctor from '../AddDoctor/AddDoctor';
+import PaymentIcon from '@mui/icons-material/Payment';
+import AdminPayments from '../AdminPayments/AdminPayments';
+import UserAppointments from '../UserAppointments/UserAppointments';
 
-const drawerWidth = 200;
+const drawerWidth = 240;
+
+const adminLinks = [
+	{ id: 2, to: 'adminDashboard', button: 'Dashboard', icon: <DashboardIcon /> },
+	{
+		id: 3,
+		to: 'adminAppointments',
+		button: 'Appointments',
+		icon: <CalendarMonthIcon />,
+	},
+	{
+		id: 4,
+		to: 'adminPatients',
+		button: 'Patients',
+		icon: <PersonAddAltIcon />,
+	},
+	{
+		id: 5,
+		to: 'prescription',
+		button: 'Prescription',
+		icon: <TextSnippetIcon />,
+	},
+	{
+		id: 6,
+		to: 'paymentHistory',
+		button: 'Payments',
+		icon: <PaymentIcon />,
+	},
+	{
+		id: 7,
+		to: 'makeAdmin',
+		button: 'Add Admin',
+		icon: <AdminPanelSettingsIcon />,
+	},
+	{
+		id: 8,
+		to: 'addDoctor',
+		button: 'Add Doctor',
+		icon: <LocalHospitalIcon />,
+	},
+];
 
 function Dashboard(props) {
-	const { admin } = useAuth();
+	const { admin, logOut } = useAuth();
 
 	const { window } = props;
 	const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -39,20 +87,65 @@ function Dashboard(props) {
 	const drawer = (
 		<div>
 			<Toolbar />
-			<div className="d-flex flex-column">
-				<Link to="/">
-					<Button>Home</Button>
-				</Link>
-				{admin && (
-					<>
-						<Link to={`${url}/makeAdmin`}>
-							<Button>Make Admin</Button>
-						</Link>
-						<Link to={`${url}/adminDashboard`}>
-							<Button>Dashboard</Button>
-						</Link>
-					</>
-				)}
+			<div
+				style={{ height: '85vh' }}
+				className="d-flex flex-column justify-content-between align-items-center"
+			>
+				<div className="d-flex flex-column justify-content-start align-items-center">
+					<Link
+						style={{
+							textDecoration: 'none',
+							display: 'flex',
+							justifyContent: 'flex-start',
+							alignItems: 'center',
+							color: 'gray',
+							width: '70%',
+							marginBottom: '10px',
+							marginLeft: '10px',
+						}}
+						to="/"
+					>
+						<HomeIcon />
+						<Button variant="secondary">Home</Button>
+					</Link>
+					<Link
+						style={{ textDecoration: 'none', color: 'gray' }}
+						to={`${url}/userAppointments`}
+					>
+						<CalendarMonthIcon />
+						<Button variant="secondary">Appointments</Button>
+					</Link>
+					{admin && (
+						<>
+							<div className="d-flex flex-column align-items-center gap-2">
+								{adminLinks.map((link) => (
+									<Link
+										style={{
+											textDecoration: 'none',
+											display: 'flex',
+											justifyContent: 'flex-start',
+											alignItems: 'center',
+											color: 'gray',
+											width: '100%',
+											marginTop: 5,
+										}}
+										to={`${url}/${link.to}`}
+										key={link.id}
+									>
+										{link.icon}
+										<Button variant="secondary">{link.button}</Button>
+									</Link>
+								))}
+							</div>
+						</>
+					)}
+				</div>
+				<div className="d-flex justify-content-between align-items-center text-secondary">
+					<LogoutIcon />
+					<Button variant="secondary" onClick={logOut}>
+						Log Out
+					</Button>
+				</div>
 			</div>
 		</div>
 	);
@@ -134,11 +227,30 @@ function Dashboard(props) {
 					<Route exact path={path}>
 						<Welcome />
 					</Route>
+					<Route path={`${path}/userAppointments`}>
+						<UserAppointments />
+					</Route>
+
 					<AdminRoute path={`${path}/makeAdmin`}>
 						<MakeAdmin />
 					</AdminRoute>
 					<AdminRoute path={`${path}/adminDashboard`}>
 						<AdminDashboard />
+					</AdminRoute>
+					<AdminRoute path={`${path}/adminAppointments`}>
+						<AdminAppointments />
+					</AdminRoute>
+					<AdminRoute path={`${path}/adminPatients`}>
+						<AdminPatients />
+					</AdminRoute>
+					<AdminRoute path={`${path}/prescription`}>
+						<Prescription />
+					</AdminRoute>
+					<AdminRoute path={`${path}/addDoctor`}>
+						<AddDoctor />
+					</AdminRoute>
+					<AdminRoute path={`${path}/paymentHistory`}>
+						<AdminPayments />
 					</AdminRoute>
 				</Switch>
 			</Box>

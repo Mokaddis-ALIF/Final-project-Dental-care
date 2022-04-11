@@ -85,8 +85,8 @@ const AdminDashboard = () => {
 				<div className="d-flex justify-content-between px-2">
 					<p className="lead">Recent Appointments</p>
 
-					<SplitButton variant="outline-secondary" title="Choose">
-						<Dropdown.Item eventKey="1">Week</Dropdown.Item>
+					<SplitButton variant="outline-secondary" title="Week">
+						<Dropdown.Item eventKey="2">Week</Dropdown.Item>
 						<Dropdown.Item eventKey="2">Month</Dropdown.Item>
 						<Dropdown.Item eventKey="3">Year</Dropdown.Item>
 					</SplitButton>
