@@ -29,6 +29,11 @@ import AddDoctor from '../AddDoctor/AddDoctor';
 import PaymentIcon from '@mui/icons-material/Payment';
 import AdminPayments from '../AdminPayments/AdminPayments';
 import UserAppointments from '../UserAppointments/UserAppointments';
+import PersonIcon from '@mui/icons-material/Person';
+import UserDetails from '../UserDetails/UserDetails';
+import UserPayment from '../UserPayment/UserPayment';
+import Review from '../Review/Review';
+import ReviewsIcon from '@mui/icons-material/Reviews';
 
 const drawerWidth = 240;
 
@@ -72,6 +77,33 @@ const adminLinks = [
 	},
 ];
 
+const userLinks = [
+	{
+		id: 1,
+		to: 'userAppointments',
+		icon: <CalendarMonthIcon />,
+		button: 'Appointments',
+	},
+	{
+		id: 2,
+		to: 'userDetails',
+		icon: <PersonIcon />,
+		button: 'Details',
+	},
+	{
+		id: 3,
+		to: 'userPayments',
+		icon: <PaymentIcon />,
+		button: 'Payment',
+	},
+	{
+		id: 4,
+		to: 'review',
+		icon: <ReviewsIcon />,
+		button: 'Review',
+	},
+];
+
 function Dashboard(props) {
 	const { admin, logOut } = useAuth();
 
@@ -108,13 +140,30 @@ function Dashboard(props) {
 						<HomeIcon />
 						<Button variant="secondary">Home</Button>
 					</Link>
-					<Link
-						style={{ textDecoration: 'none', color: 'gray' }}
-						to={`${url}/userAppointments`}
-					>
-						<CalendarMonthIcon />
-						<Button variant="secondary">Appointments</Button>
-					</Link>
+
+					{/* User Links */}
+					<div className="d-flex flex-column align-items-center gap-2">
+						{userLinks.map((link) => (
+							<Link
+								style={{
+									textDecoration: 'none',
+									display: 'flex',
+									justifyContent: 'flex-start',
+									alignItems: 'center',
+									color: 'gray',
+									width: '100%',
+									marginTop: 5,
+								}}
+								to={`${url}/${link.to}`}
+								key={link.id}
+							>
+								{link.icon}
+								<Button variant="secondary">{link.button}</Button>
+							</Link>
+						))}
+					</div>
+
+					{/* Admin Links */}
 					{admin && (
 						<>
 							<div className="d-flex flex-column align-items-center gap-2">
@@ -229,6 +278,15 @@ function Dashboard(props) {
 					</Route>
 					<Route path={`${path}/userAppointments`}>
 						<UserAppointments />
+					</Route>
+					<Route path={`${path}/userDetails`}>
+						<UserDetails />
+					</Route>
+					<Route path={`${path}/userPayments`}>
+						<UserPayment />
+					</Route>
+					<Route path={`${path}/review`}>
+						<Review />
 					</Route>
 
 					<AdminRoute path={`${path}/makeAdmin`}>
