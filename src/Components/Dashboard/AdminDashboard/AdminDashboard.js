@@ -9,7 +9,6 @@ import {
 	SplitButton,
 	Table,
 } from 'react-bootstrap';
-import { FaRegCalendarAlt } from 'react-icons/fa';
 import EditIcon from '@mui/icons-material/Edit';
 
 const appointments = [
@@ -24,6 +23,7 @@ const tableHeading = [
 	'Time',
 	'Name',
 	'Contact',
+	'Service',
 	'Prescription',
 	'Action',
 ];
@@ -35,6 +35,7 @@ const appData = [
 		time: '3.30 PM',
 		name: 'Alif',
 		contact: '+0123445566',
+		service: 'Clear Braces',
 		prescription: 'View',
 		action: 'Pending',
 	},
@@ -44,6 +45,7 @@ const appData = [
 		time: '3.30 PM',
 		name: 'Jonayed',
 		contact: '+0123445566',
+		service: 'Implants',
 		prescription: 'Not Added',
 		action: 'Cancelled',
 	},
@@ -53,6 +55,7 @@ const appData = [
 		time: '3.30 PM',
 		name: 'Jonayed',
 		contact: '+0123445566',
+		service: 'Retention',
 		prescription: 'View',
 		action: 'Approved',
 	},
@@ -109,6 +112,7 @@ const AdminDashboard = () => {
 								<td>{data.time}</td>
 								<td>{data.name}</td>
 								<td>{data.contact}</td>
+								<td>{data.service}</td>
 								<td>
 									{data.prescription === 'View' ? (
 										<Button className="text-white" variant="info">

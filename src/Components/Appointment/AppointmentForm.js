@@ -35,6 +35,7 @@ const AppointmentForm = () => {
 							confirm your appointment for <br /> <b>{pickedService.name}</b>
 						</p>
 					</div>
+					<hr className="my-4" style={{ border: '1px solid gray' }} />
 
 					<Form className="text-secondary">
 						<Row className="mb-3">
@@ -77,15 +78,6 @@ const AppointmentForm = () => {
 							<Form.Control placeholder="1234 Main St" />
 						</Form.Group>
 
-						<Form.Select
-							aria-label="Default select example"
-							className="text-secondary my-1"
-						>
-							<option>Choose your Doctor</option>
-							<option value="1">One</option>
-							<option value="2">Two</option>
-						</Form.Select>
-
 						<Form.Group
 							className="mb-3"
 							controlId="exampleForm.ControlTextarea1"
@@ -101,7 +93,9 @@ const AppointmentForm = () => {
 				<Link to={`/pickDate/${id}`} style={{ textDecoration: 'none' }}>
 					<Button variant="secondary">Go back</Button>
 				</Link>
-				<Button variant="secondary">Next</Button>
+				<Link to="/dashboard">
+					<Button variant="secondary">Next</Button>
+				</Link>
 			</div>
 		</Container>
 	);

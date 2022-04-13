@@ -17,6 +17,7 @@ const useFirebase = () => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [authError, setAuthError] = useState('');
 	const [admin, setAdmin] = useState(false);
+	const [doctor, setDoctor] = useState(false);
 
 	const auth = getAuth();
 	const provider = new GoogleAuthProvider();
@@ -68,10 +69,18 @@ const useFirebase = () => {
 
 	useEffect(() => {
 		const adminUser = 'alif@gmail.com';
+		const doctorOne = 'mona@gmail.com';
+
 		if (user.email === adminUser) {
 			setAdmin(true);
 		} else {
 			setAdmin(false);
+		}
+
+		if (user.email === doctorOne) {
+			setDoctor(true);
+		} else {
+			setDoctor(false);
 		}
 
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -109,6 +118,7 @@ const useFirebase = () => {
 		authError,
 		googleSignIn,
 		admin,
+		doctor,
 	};
 };
 

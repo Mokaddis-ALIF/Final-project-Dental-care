@@ -143,7 +143,7 @@ const Header = ({ openSidebar }) => {
 									borderRadius: '8px',
 								}}
 								exact
-								to="/servicesApp"
+								to="/pickDoctor"
 								activeClassName="active"
 								className="nav-links"
 								onClick={handleClick}

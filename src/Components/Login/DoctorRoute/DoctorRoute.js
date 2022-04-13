@@ -3,8 +3,9 @@ import React from 'react';
 import { Redirect, Route } from 'react-router';
 import useAuth from '../../../Auth/Hooks/useAuth';
 
-const AdminRoute = ({ children, ...rest }) => {
-	const { user, admin, doctor, isLoading } = useAuth();
+const DoctorRoute = ({ children, ...rest }) => {
+	const { user, doctor, isLoading } = useAuth();
+	console.log(doctor);
 
 	if (isLoading) {
 		return <CircularProgress />;
@@ -13,7 +14,7 @@ const AdminRoute = ({ children, ...rest }) => {
 		<Route
 			{...rest}
 			render={({ location }) =>
-				(user.email && admin) || doctor ? (
+				user.email && doctor ? (
 					children
 				) : (
 					<Redirect
@@ -28,4 +29,4 @@ const AdminRoute = ({ children, ...rest }) => {
 	);
 };
 
-export default AdminRoute;
+export default DoctorRoute;

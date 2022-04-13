@@ -10,6 +10,7 @@ import DatePickerApp from './Components/Appointment/DatePickerApp';
 import AppointmentForm from './Components/Appointment/AppointmentForm';
 import NotFound from './Components/NotFound/NotFound';
 import Dashboard from './Components/Dashboard/Dashboard/Dashboard';
+import DoctorPick from './Components/Appointment/DoctorPick/DoctorPick';
 
 function App() {
 	return (
@@ -30,6 +31,9 @@ function App() {
 					</PrivateRoute>
 					<PrivateRoute path="/dashboard">
 						<Dashboard />
+					</PrivateRoute>
+					<PrivateRoute path="/pickDoctor">
+						<DoctorPick />
 					</PrivateRoute>
 
 					<PrivateRoute exact path="/pickDate/:id">

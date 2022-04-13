@@ -9,6 +9,7 @@ const data = [
 		age: '26',
 		contact: '01298384747',
 		address: 'Nazirbari North Kattali',
+		visit: 'Not Visited',
 	},
 	{
 		id: 2,
@@ -17,6 +18,7 @@ const data = [
 		age: '26',
 		contact: '01298384747',
 		address: 'Nazirbari North Kattali',
+		visit: 'Not Visited',
 	},
 	{
 		id: 3,
@@ -25,6 +27,7 @@ const data = [
 		age: '26',
 		contact: '01298384747',
 		address: 'Nazirbari North Kattali',
+		visit: 'Not Visited',
 	},
 	{
 		id: 4,
@@ -33,6 +36,7 @@ const data = [
 		age: '26',
 		contact: '01298384747',
 		address: 'Nazirbari North Kattali',
+		visit: 'Visited',
 	},
 	{
 		id: 5,
@@ -41,6 +45,7 @@ const data = [
 		age: '26',
 		contact: '01298384747',
 		address: 'Nazirbari North Kattali',
+		visit: 'Visited',
 	},
 	{
 		id: 6,
@@ -49,6 +54,7 @@ const data = [
 		age: '26',
 		contact: '01298384747',
 		address: 'Nazirbari North Kattali',
+		visit: 'Visited',
 	},
 ];
 
@@ -67,7 +73,7 @@ const AdminPatients = () => {
 				<thead>
 					<tr>
 						<th>SL No</th>
-						{['Name', 'Gender', 'Age', 'Contact', 'Address'].map(
+						{['Name', 'Gender', 'Age', 'Contact', 'Address', 'Visit'].map(
 							(data, index) => (
 								<th key={index}>{data}</th>
 							)
@@ -83,6 +89,13 @@ const AdminPatients = () => {
 							<td>{d.age}</td>
 							<td>{d.contact}</td>
 							<td>{d.address}</td>
+							<td
+								className={
+									d.visit === 'Visited' ? 'text-success' : 'text-danger'
+								}
+							>
+								{d.visit}
+							</td>
 						</tr>
 					))}
 				</tbody>

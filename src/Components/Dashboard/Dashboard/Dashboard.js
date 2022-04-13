@@ -34,6 +34,8 @@ import UserDetails from '../UserDetails/UserDetails';
 import UserPayment from '../UserPayment/UserPayment';
 import Review from '../Review/Review';
 import ReviewsIcon from '@mui/icons-material/Reviews';
+import DoctorAppointments from '../DoctorAppointments/DoctorAppointments';
+import DoctorDashboard from '../DoctorDashboard/DoctorDashboard';
 
 const drawerWidth = 240;
 
@@ -77,6 +79,34 @@ const adminLinks = [
 	},
 ];
 
+const doctorLinks = [
+	{ id: 2, to: 'adminDashboard', button: 'Dashboard', icon: <DashboardIcon /> },
+	{
+		id: 3,
+		to: 'adminAppointments',
+		button: 'Appointments',
+		icon: <CalendarMonthIcon />,
+	},
+	{
+		id: 4,
+		to: 'adminPatients',
+		button: 'Patients',
+		icon: <PersonAddAltIcon />,
+	},
+	{
+		id: 5,
+		to: 'prescription',
+		button: 'Prescription',
+		icon: <TextSnippetIcon />,
+	},
+	{
+		id: 6,
+		to: 'paymentHistory',
+		button: 'Payments',
+		icon: <PaymentIcon />,
+	},
+];
+
 const userLinks = [
 	{
 		id: 1,
@@ -105,7 +135,8 @@ const userLinks = [
 ];
 
 function Dashboard(props) {
-	const { admin, logOut } = useAuth();
+	const { admin, doctor, logOut } = useAuth();
+	console.log(doctor);
 
 	const { window } = props;
 	const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -142,26 +173,54 @@ function Dashboard(props) {
 					</Link>
 
 					{/* User Links */}
-					<div className="d-flex flex-column align-items-center gap-2">
-						{userLinks.map((link) => (
-							<Link
-								style={{
-									textDecoration: 'none',
-									display: 'flex',
-									justifyContent: 'flex-start',
-									alignItems: 'center',
-									color: 'gray',
-									width: '100%',
-									marginTop: 5,
-								}}
-								to={`${url}/${link.to}`}
-								key={link.id}
-							>
-								{link.icon}
-								<Button variant="secondary">{link.button}</Button>
-							</Link>
-						))}
-					</div>
+					{!admin && !doctor && (
+						<div className="d-flex flex-column align-items-center gap-2">
+							{userLinks.map((link) => (
+								<Link
+									style={{
+										textDecoration: 'none',
+										display: 'flex',
+										justifyContent: 'flex-start',
+										alignItems: 'center',
+										color: 'gray',
+										width: '100%',
+										marginTop: 5,
+									}}
+									to={`${url}/${link.to}`}
+									key={link.id}
+								>
+									{link.icon}
+									<Button variant="secondary">{link.button}</Button>
+								</Link>
+							))}
+						</div>
+					)}
+
+					{/* doctor link */}
+					{doctor && (
+						<>
+							<div className="d-flex flex-column align-items-center gap-2">
+								{doctorLinks.map((link) => (
+									<Link
+										style={{
+											textDecoration: 'none',
+											display: 'flex',
+											justifyContent: 'flex-start',
+											alignItems: 'center',
+											color: 'gray',
+											width: '100%',
+											marginTop: 5,
+										}}
+										to={`${url}/${link.to}`}
+										key={link.id}
+									>
+										{link.icon}
+										<Button variant="secondary">{link.button}</Button>
+									</Link>
+								))}
+							</div>
+						</>
+					)}
 
 					{/* Admin Links */}
 					{admin && (
@@ -309,6 +368,12 @@ function Dashboard(props) {
 					</AdminRoute>
 					<AdminRoute path={`${path}/paymentHistory`}>
 						<AdminPayments />
+					</AdminRoute>
+					<AdminRoute path={`${path}/doctorAppointments`}>
+						<DoctorAppointments />
+					</AdminRoute>
+					<AdminRoute path={`${path}/doctorDashboard`}>
+						<DoctorDashboard />
 					</AdminRoute>
 				</Switch>
 			</Box>
